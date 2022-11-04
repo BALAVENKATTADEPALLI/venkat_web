@@ -21,17 +21,17 @@
 .img{
 
     width: 25%;
-    height: 25%;
+    height: 10%;
     
 }
 
 .photo img {
 
-    width:75%;
+    width:250px;
 }
 
 .photo p{
-    font-size: larger;
+    font-size: medium;
 }
 .container{
     display: flex;
