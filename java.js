@@ -57,7 +57,7 @@ class bala
     }
     setNts(Ptext){
         this.Ptext=Nts;
-    }
+}
 
 }
 let create= document.getElementById("login-form");
