@@ -1,0 +1,42 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:medium;
+}
+.login{
+    background-color:azure;
+    text-align: center;
+}
+.Register{
+    background-color: lavender;
+}
+.Notes{
+    text-align: center;
+}
+
+.email{
+
+    margin-bottom: 10px;
+}
+
+.img{
+
+    width: 25%;
+    height: 25%;
+    
+}
+
+.photo img {
+
+    width:75%;
+}
+
+.photo p{
+    font-size: larger;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-content: center;
+}
+
