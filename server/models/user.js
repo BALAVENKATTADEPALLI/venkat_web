@@ -1,4 +1,4 @@
-const users = [
+/* const users = [
   {
       firstname:"venkat",
       lastname:"thadepalli",
@@ -11,6 +11,7 @@ const users = [
     
   },
 ];
+*/
 
 
 const con = require("./db_connect");
@@ -21,7 +22,7 @@ let sql=`CREATE TABLE IF NOT EXISTS users (
   userID INT NOT NULL AUTO_INCREMENT,
   firstname VARCHAR(255) NOT NULL,
   lastname VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL UNIQUE,
+  emailid VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   CONSTRAINT userPK PRIMARY KEY(userID)
 ); `
@@ -30,12 +31,12 @@ await con.query(sql);
 createTable();
 
 async function register(user) {
-let cUser = await getUser(user.email);
+let cUser = await getUser(user);
 console.log(user)
 if(cUser.length > 0) throw error("email already in use");
 
-const sql = `INSERT INTO users (firstname,lastname,email, password)
-  VALUES ("${user.firstname}", "${user.lastname}","${user.emai}","${user.pwd}");
+const sql = `INSERT INTO users (firstname,lastname,emailid,password )
+  VALUES ("${user.firstname}", "${user.lastname}","${user.emailid}","${user.password}");
 `
 await con.query(sql);
 return await login(user);
@@ -44,9 +45,9 @@ return await login(user);
 
 async function getAllUsers() {
  const sql = "SELECT * FROM users;";
- let users = await con.query(sql);
- console.log(users)
- return users;
+ let usercontent = await con.query(sql);
+ console.log(usercontent)
+ return usercontent;
 }
 
 
@@ -61,7 +62,7 @@ async function getUser(user) {
   } else {
     sql = `
     SELECT * FROM users 
-      WHERE email = "${user.email}"
+      WHERE emailid = "${user.emailid}"
   `;
   }
   return await con.query(sql);  
@@ -69,25 +70,24 @@ async function getUser(user) {
 
 
 async function login(user) { 
-  console.log(user.email);
+  console.log(user);
 let cUser = await getUser(user); 
 
-if(!cUser[0]) throw Error(user.email+" email not found");
-if(cUser[0].pwd !== user.pwd) throw Error("Password incorrect");
-console.log(cUser[0]);
-
+if(!cUser[0]) throw Error("Username incorrect");
+if(cUser[0].password !== user.password) throw Error("Password incorrect");
+console.log(cUser);
 return cUser[0];
 }
 
-async function editUser(user) {
+async function updateUser(user) {
   let sql = `UPDATE users 
-    SET email = "${user.email}"
+    SET emailid = "${user.emailid}"
     WHERE userID = ${user.userID}
   `;
   
   await con.query(sql);
-  let updatedUser = await getUser(user);
-  return updatedUser[0];
+  let cUser = await getUser(user);
+  return cUser[0];
   }
 
 async function deleteUser(user) {
@@ -98,4 +98,5 @@ async function deleteUser(user) {
   }
 
 
-module.exports = { getAllUsers, login,register, deleteUser, editUser}
+module.exports = { getAllUsers,login, register, deleteUser, updateUser};
+

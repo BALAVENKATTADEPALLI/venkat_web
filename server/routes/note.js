@@ -5,21 +5,17 @@ const router = express.Router();
 router
   .get('/', async (req, res) => {
     try {
-      const notes = await Note.getAllNotes();
-      res.send(notes);
+      const notem = await Note.getAllNotes();
+      res.send(notem);
     } catch(err) {
       res.status(401).send({message: err.message});
     }
   })
 
-  .get('/read', async (req, res) => {
+  .post('/getNote', async (req, res) => {
     try {
       let note = await Note.getNote(req.body);
-      if(note["0"]){
-        res.send({...note})
-      }else{
-        res.send({error:"Enter a valid noteID"});
-      }
+      res.send(note)
     } catch(err) {
       res.status(401).send({message: err.message});
     }
@@ -27,39 +23,35 @@ router
 
   .get('/byUser', async (req, res) => {
     try {
-      let note = await Note.getNotesByUser(req.body);
-      if(note["0"]){
-        res.send({...note})
-      }else{
-        res.send({error:"User does not have any notes"});
-      }
+      let notem = await Note.getNotesByUser(req.body);
+      res.send(notem)
     } catch(err) {
       res.status(401).send({message: err.message});
     }
   })
 
-  .post('/create', async (req, res) => {
+  .post('/createNote', async (req, res) => {
     try {
-      let note = await Note.create(req.body);
-      res.send({...note})
+      let notem = await Note.createNote(req.body);
+      res.send({notem})
     } catch(err) {
       res.status(401).send({message: err.message});
     }
   })
 
-  .put('/edit', async (req, res) => {
+  .put('/updateNote', async (req, res) => {
     try {
-      let note = await Note.editNote(req.body);
-      res.send({...note});
+      let notem = await Note.updateNote(req.body);
+      res.send(notem);
     } catch(err) {
       res.status(401).send({message: err.message})
     }
   })
 
-  .delete('/remove', async (req, res) => {
+  .delete('/deleteNote', async (req, res) => {
     try {
-      Note.removeNote(req.body);
-      res.send({success: "NOTE REMOVED... :("})
+      Notem.deleteNote(req.body);
+      res.send({success: "Note Deleted... :("})
     } catch(err) {
       res.status(401).send({message: err.message})
     }

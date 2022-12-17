@@ -1,31 +1,25 @@
 {
-  "name": "venkat-web",
+  "name": "venkat_web",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "serve": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BALAVENKATTADEPALLI/venkat-web.git"
+    "url": "git+https://github.com/BALAVENKATTADEPALLI/venkat_web.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BALAVENKATTADEPALLI/venkat-web/issues"
+    "url": "https://github.com/BALAVENKATTADEPALLI/venkat_web/issues"
   },
-  "homepage": "https://github.com/BALAVENKATTADEPALLI/venkat-web#readme",
+  "homepage": "https://github.com/BALAVENKATTADEPALLI/venkat_web#readme",
   "dependencies": {
-    "dot": "^1.1.3",
     "dotenv": "^16.0.3",
-    "env": "^0.0.2",
     "express": "^4.18.2",
     "mysql2": "^2.3.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
-  },
-  "description": ""
+  }
 }
