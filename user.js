@@ -1,29 +1,23 @@
-const users = [
-    {
-      email: "abc@gmail.com",
-      Password: "icecream"
-    },
-    {
-      email: "def@gmail.com ",
-      Password: "badpassword"
-    },
-    {
-      email: "ghi@gmail.com",
-      Password: "hi"
+const express = require('express');
+const User = require('../models/user');
+const router = express.Router();
+
+router
+  .get('/', async (req, res) => {
+    try {
+      const users = await User.getAllUsers();
+      res.send(users);
+    } catch(err) {
+      res.status(401).send({message: err.message});
     }
-  ];
-  
-  function getAllUsers() {
-    return users;
-  }
-  
-  function login(user) { // {userName: "sda", password: "gsdhjsga"}
-    let cUser = users.filter( u => u.email === user.email);
-    
-    if(!cUser[0]) throw Error("Username not found");
-    if(cUser[0].Password !== user.Password) throw Error("Password incorrect");
-  
-    return cUser[0];
-  }
-  
-  module.exports = { getAllUsers, login };
+  })
+
+  .post('/login', async (req, res) => {
+    try {
+      let user = await User.login(req.body);
+      res.send({...user, password: undefined})
+    } catch(err) {
+      res.status(401).send({message: err.message});
+    }
+  })
+  module.exports = router;
